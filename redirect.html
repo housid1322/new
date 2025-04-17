@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>正在跳转...</title>
+  <meta http-equiv="refresh" content="3">
+</head>
+<body>
+  <p>正在跳转，请稍候...</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const targetUrl = params.get('url');
+    if (targetUrl) {
+      // 防止 XSS，必须验证 URL 开头
+      if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
+        window.location.href = targetUrl;
+      } else {
+        document.body.innerHTML = '<p>无效的跳转链接</p>';
+      }
+    } else {
+      document.body.innerHTML = '<p>未提供跳转目标</p>';
+    }
+  </script>
+</body>
+</html>

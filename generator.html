@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>生成跳转链接</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input, button { padding: 8px; width: 100%; margin-top: 10px; }
+    a { color: blue; word-break: break-all; display: block; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>跳转链接生成工具</h2>
+  <p>请输入要跳转的网址：</p>
+  <input type="text" id="inputUrl" placeholder="例如：https://example.com">
+  <button onclick="generate()">生成跳转链接</button>
+
+  <a id="result" target="_blank"></a>
+
+  <script>
+    function generate() {
+      const rawUrl = document.getElementById('inputUrl').value.trim();
+      if (!rawUrl.startsWith('http://') && !rawUrl.startsWith('https://')) {
+        alert("请输入完整的网址（必须以 http:// 或 https:// 开头）");
+        return;
+      }
+
+      const encodedUrl = encodeURIComponent(rawUrl);
+      const redirectPage = "https://你的跳转页面地址/redirect.html";
+      const fullLink = `${redirectPage}?url=${encodedUrl}`;
+
+      const linkEl = document.getElementById('result');
+      linkEl.href = fullLink;
+      linkEl.innerText = `点击跳转链接：\n${fullLink}`;
+    }
+  </script>
+</body>
+</html>
